@@ -1,30 +1,46 @@
-var merge = function (nums1, m, nums2, n) {
-    let i = m - 1;  
-    let j = n - 1;  
-    let k = m + n - 1; 
-
-    while (i >= 0 && j >= 0) {
-        if (nums1[i] > nums2[j]) {
-            nums1[k] = nums1[i];
-            i--;
-        } else {
-            nums1[k] = nums2[j];
-            j--;
-        }
-        k--;
+class TreeNode {
+    constructor(val = 0, left = null, right = null) {
+      this.val = val;
+      this.left = left;
+      this.right = right;
     }
-
-    while (j >= 0) {
-        nums1[k] = nums2[j];
-        j--;
-        k--;
+  }
+  
+  function inorderTraversal(root) {
+    const result = [];
+    inorderRecursive(root, result);
+    return result;
+  }
+  
+  function inorderRecursive(node, result) {
+    if (node) {
+      inorderRecursive(node.left, result);
+      result.push(node.val);
+      inorderRecursive(node.right, result);
     }
-};
-
-let nums1 = [1, 2, 3, 0, 0, 0];
-let m = 3;
-let nums2 = [2, 5, 6];
-let n = 3;
-
-merge(nums1, m, nums2, n);
-console.log(nums1);  
+  }
+  
+  // Example usage:
+  // Example 1:
+  // Input: root = [1,null,2,3]
+  // Output: [1,3,2]
+  const root1 = new TreeNode(1);
+  root1.right = new TreeNode(2);
+  root1.right.left = new TreeNode(3);
+  const result1 = inorderTraversal(root1);
+  console.log(result1);
+  
+  // Example 2:
+  // Input: root = []
+  // Output: []
+  const root2 = null;
+  const result2 = inorderTraversal(root2);
+  console.log(result2);
+  
+  // Example 3:
+  // Input: root = [1]
+  // Output: [1]
+  const root3 = new TreeNode(1);
+  const result3 = inorderTraversal(root3);
+  console.log(result3);
+  
