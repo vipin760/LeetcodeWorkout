@@ -1,46 +1,28 @@
-class TreeNode {
-    constructor(val = 0, left = null, right = null) {
-      this.val = val;
-      this.left = left;
-      this.right = right;
-    }
+function TreeNode(val) {
+  this.val = val;
+  this.left = this.right = null;
+}
+
+function isSameTree(p, q) {
+  // Base cases
+  if (!p && !q) {
+    return true; // Both trees are empty, so they are the same
   }
-  
-  function inorderTraversal(root) {
-    const result = [];
-    inorderRecursive(root, result);
-    return result;
+  if (!p || !q || p.val !== q.val) {
+    return false; // One of the trees is empty or values are different, so they are not the same
   }
-  
-  function inorderRecursive(node, result) {
-    if (node) {
-      inorderRecursive(node.left, result);
-      result.push(node.val);
-      inorderRecursive(node.right, result);
-    }
-  }
-  
-  // Example usage:
-  // Example 1:
-  // Input: root = [1,null,2,3]
-  // Output: [1,3,2]
-  const root1 = new TreeNode(1);
-  root1.right = new TreeNode(2);
-  root1.right.left = new TreeNode(3);
-  const result1 = inorderTraversal(root1);
-  console.log(result1);
-  
-  // Example 2:
-  // Input: root = []
-  // Output: []
-  const root2 = null;
-  const result2 = inorderTraversal(root2);
-  console.log(result2);
-  
-  // Example 3:
-  // Input: root = [1]
-  // Output: [1]
-  const root3 = new TreeNode(1);
-  const result3 = inorderTraversal(root3);
-  console.log(result3);
-  
+
+  // Recursively check left and right subtrees
+  return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+}
+
+// Example usage:
+const tree1 = new TreeNode(1);
+tree1.left = new TreeNode(2);
+tree1.right = new TreeNode(3);
+
+const tree2 = new TreeNode(1);
+tree2.left = new TreeNode(2);
+tree2.right = new TreeNode(3);
+
+console.log(isSameTree(tree1, tree2)); // Output: true
